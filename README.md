@@ -1,1 +1,1 @@
-# claude-kit
+# ClaudeKit
