@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaudeKit Engineer — Complete Guide</title>
+<style>
+  :root{
+    --bg:#0f1117; --bg2:#161923; --card:#1b1f2b; --line:#2a3040;
+    --card2:#212736; --ink:#e6e9ef; --muted:#9aa3b2; --dim:#6b7385;
+    --accent:#7f5af0; --accent2:#2cb67d; --accent3:#ff8906; --code:#ffd803;
+    --radius:14px; --shadow:0 8px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:radial-gradient(1200px 600px at 80% -10%,rgba(127,90,240,.18),transparent 60%),radial-gradient(1000px 500px at 0% 0%,rgba(44,182,125,.10),transparent 55%),var(--bg);
+    color:var(--ink); font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.hero{padding:64px 22px 34px;text-align:center;position:relative}
+  .badge{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);border:1px solid var(--line);padding:6px 14px;border-radius:999px;background:var(--bg2)}
+  h1{font-size:clamp(30px,5vw,46px);margin:18px 0 8px;letter-spacing:-.02em;
+     background:linear-gradient(90deg,#fff,#c9c2ff 60%,#9be7c4);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);max-width:640px;margin:0 auto;font-size:17px}
+  .flow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0 6px}
+  .flow .pill{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 18px;font-weight:600}
+  .flow .pill code{color:var(--code)}
+  .flow .arw{align-self:center;color:var(--dim)}
+
+  nav.toc{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-top:24px}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;padding:12px 22px}
+  nav.toc a{color:var(--muted);text-decoration:none;font-size:13.5px;padding:6px 12px;border-radius:8px}
+  nav.toc a:hover{color:#fff;background:var(--card)}
+
+  section{padding:40px 0;border-bottom:1px solid rgba(42,48,64,.6)}
+  h2{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+  h2 .n{color:var(--accent);font-weight:700;margin-right:10px}
+  h3{font-size:18px;margin:26px 0 8px;color:#fff}
+  .lead{color:var(--muted);margin:0 0 18px}
+  p{color:#cdd3de}
+
+  /* code blocks */
+  .cmd{position:relative;background:#0b0d13;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+  .cmd pre{margin:0;padding:16px 54px 16px 18px;overflow-x:auto;font:14px/1.7 "SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#e7ecf5;white-space:pre}
+  .cmd pre .c{color:var(--code)}
+  .cmd pre .g{color:var(--dim)}
+  .copy{position:absolute;top:10px;right:10px;background:var(--card2);border:1px solid var(--line);color:var(--muted);
+        font-size:12px;padding:6px 11px;border-radius:8px;cursor:pointer;transition:.15s}
+  .copy:hover{color:#fff;border-color:var(--accent);background:var(--card)}
+  .copy.ok{color:var(--accent2);border-color:var(--accent2)}
+
+  /* steps */
+  .step{display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(42,48,64,.5)}
+  .step:first-of-type{border-top:none}
+  .step .num{flex:0 0 40px;height:40px;width:40px;border-radius:11px;display:grid;place-items:center;font-weight:800;
+             background:linear-gradient(140deg,var(--accent),#5a3fd0);color:#fff;box-shadow:var(--shadow)}
+  .step .body{flex:1;min-width:0}
+  .step h3{margin:4px 0 4px}
+  .mean{color:var(--muted);font-size:14.5px}
+  .mean b{color:#e6e9ef;font-weight:600}
+  .opt{font-size:12px;color:var(--accent3);border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:middle}
+
+  /* tables */
+  .tbl{width:100%;border-collapse:collapse;margin:14px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{ text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg2);padding:11px 14px}
+  .tbl td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;font-size:14.5px}
+  .tbl td:first-child{white-space:nowrap}
+  .tbl code{background:#0b0d13;border:1px solid var(--line);color:var(--code);padding:2px 7px;border-radius:6px;font:13px/1.5 "SF Mono",ui-monospace,Menlo,monospace}
+  .tbl tr:hover td{background:rgba(127,90,240,.05)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:14px 0}
+  .agent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .agent .name{font-weight:700;color:#fff}
+  .agent .role{color:var(--muted);font-size:13.5px;margin-top:3px}
+
+  .cat{margin:22px 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+
+  .rules{counter-reset:r;list-style:none;padding:0}
+  .rules li{counter-increment:r;position:relative;padding:12px 12px 12px 52px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  .rules li::before{content:counter(r);position:absolute;left:12px;top:12px;height:28px;width:28px;border-radius:8px;display:grid;place-items:center;background:var(--accent2);color:#04120b;font-weight:800}
+  .rules b{color:#fff}
+
+  .note{background:linear-gradient(140deg,rgba(127,90,240,.12),rgba(44,182,125,.08));border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#d9deea;font-size:14.5px}
+  footer{padding:34px 22px 60px;text-align:center;color:var(--dim);font-size:13px}
+  footer code{color:var(--muted)}
+  a.top{color:var(--accent)}
+  @media(max-width:640px){.step .num{flex-basis:34px;width:34px;height:34px}.flow .arw{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="badge">ClaudeKit Engineer</span>
+  <h1>Plan → Ship: The Complete Guide</h1>
+  <p class="sub">Everything you need to build Compose Multiplatform apps — EBook Reader, Habits, and beyond. Every command, agent, skill, and hook, with plain-English meanings.</p>
+  <div class="flow">
+    <div class="pill"><code>/ck:plan</code> · think</div>
+    <span class="arw">→</span>
+    <div class="pill"><code>/ck:cook</code> · build</div>
+    <span class="arw">→</span>
+    <div class="pill"><code>/ck:ship</code> · release</div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#setup">0 · Setup</a>
+  <a href="#how">1 · How it works</a>
+  <a href="#pipeline">2 · Pipeline</a>
+  <a href="#commands">3 · Commands</a>
+  <a href="#agents">4 · Agents</a>
+  <a href="#skills">5 · Skills</a>
+  <a href="#hooks">6 · Hooks</a>
+  <a href="#recipes">7 · Recipes</a>
+  <a href="#rules">8 · Golden rules</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- 0 -->
+<section id="setup">
+  <h2><span class="n">0</span>Setup — CLI + local kit</h2>
+  <p class="lead">You downloaded the kit; you'll install the <b>ck</b> CLI once, then init your project <b>from the local kit folder</b> using <code>--kit-path</code>. No GitHub, no download, no auth. Do the init once per project.</p>
+
+  <div class="step"><div class="num">1</div><div class="body">
+    <h3>Install the ClaudeKit CLI <span class="opt">once, globally</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">npm install -g claudekit-cli</span></pre></div>
+    <p class="mean"><b>Meaning:</b> installs the <code>ck</code> command. Needs Node 18+. Verify with <code>ck --version</code>.</p>
+  </div></div>
+
+  <div class="step"><div class="num">2</div><div class="body">
+    <h3>Init your app from the local kit folder</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="g"># go into your existing app (it already has source code)</span>
+<span class="c">cd</span> /path/to/ebook-reader
+
+<span class="g"># point ck at the downloaded kit — no network needed</span>
+<span class="c">ck init</span> --kit-path "/Users/javokhir/MyFiles/Development/ClaudeKit/ClaudeKit Engineer"</pre></div>
+    <p class="mean"><b>Meaning:</b> <code>--kit-path</code> tells the CLI to install from your local kit directory instead of downloading. It creates the <code>.claude/</code> folder in your app and leaves your code untouched. Repeat with the same command inside the Habits app. Add <code>-y</code> to skip prompts, <code>--prefix</code> to keep the <code>/ck:</code> namespace.</p>
+  </div></div>
+
+  <div class="step"><div class="num">3</div><div class="body">
+    <h3>Start Claude Code in the app</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">claude</span></pre></div>
+    <p class="mean"><b>Meaning:</b> launches Claude Code with the kit active. The <code>session-init</code> hook detects your project and loads the rules automatically.</p>
+  </div></div>
+
+  <div class="step"><div class="num">4</div><div class="body">
+    <h3>Generate your CLAUDE.md</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/init</span></pre></div>
+    <p class="mean"><b>Meaning:</b> scans your existing code and writes a <code>CLAUDE.md</code> describing build commands, modules, and conventions. Then hand-add your KMP specifics (module layout, DI, navigation, persistence, expect/actual) — see Golden Rule #4.</p>
+  </div></div>
+
+  <div class="note"><b>Alternatives:</b> <code>ck init --archive ~/downloads/engineer.zip</code> installs from a local zip instead of a folder. <b>Note:</b> since you trimmed this kit, <code>--kit-path</code> installs your slimmed version. If the CLI complains about missing manifest files, point <code>--kit-path</code> at an untrimmed copy of the kit, then delete the unwanted skills from the app's <code>.claude/</code> afterward. Day-to-day you live in <code>/ck:plan</code> → <code>/ck:cook</code> → <code>/ck:ship</code>.</div>
+</section>
+
+<!-- 1 -->
+<section id="how">
+  <h2><span class="n">1</span>How the system works</h2>
+  <p class="lead">ClaudeKit is a team of AI specialists coordinated by four layers. Only one layer needs your hands.</p>
+  <table class="tbl">
+    <tr><th>Layer</th><th>What it is</th><th>You touch it?</th></tr>
+    <tr><td><b>Commands</b></td><td>Slash commands you type — the front door to every stage.</td><td>Yes — you type these</td></tr>
+    <tr><td><b>Agents</b></td><td>Specialist roles the kit delegates to (planner, tester…).</td><td>No — assigned for you</td></tr>
+    <tr><td><b>Skills</b></td><td>Packages of expert knowledge auto-loaded per task.</td><td>No — auto-activated</td></tr>
+    <tr><td><b>Hooks</b></td><td>Background scripts that enforce quality gates.</td><td>No — always on</td></tr>
+  </table>
+  <p>The 30-second version — for almost every feature you type just three commands:</p>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span>  "describe the feature"     <span class="g"># think &amp; design</span>
+<span class="c">/ck:cook</span>  "implement the plan"       <span class="g"># build &amp; test</span>
+<span class="c">/ck:ship</span>  beta                       <span class="g"># commit, review, push, PR</span></pre></div>
+  <p class="mean">Everything else is optional power tooling for when you explore, design, debug, or explain.</p>
+</section>
+
+<!-- 2 -->
+<section id="pipeline">
+  <h2><span class="n">2</span>The Plan → Ship pipeline</h2>
+  <p class="lead">Follow top to bottom. Copy the commands as you go.</p>
+
+  <div class="step"><div class="num">0</div><div class="body">
+    <h3>Session start <span class="opt">automatic</span></h3>
+    <p class="mean">Nothing to type. Hooks load your <b>CLAUDE.md</b>, the kit rules, and any active plan.</p>
+  </div></div>
+
+  <div class="step"><div class="num">1</div><div class="body">
+    <h3>Explore the code <span class="opt">optional</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:scout</span> "how does the reader load and paginate a book"</pre></div>
+    <p class="mean"><b>Meaning:</b> fans out fast parallel searches and reports where the relevant code lives.</p>
+  </div></div>
+
+  <div class="step"><div class="num">2</div><div class="body">
+    <h3>Plan</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span> "add offline EPUB caching with a 500MB LRU limit"</pre></div>
+    <p class="mean"><b>Meaning:</b> the <b>planner</b> + parallel <b>researcher</b> agents produce a step-by-step plan in <code>./plans/</code>. No code yet. Use <b>/ck:plan:hard</b> for tricky work, <b>/ck:plan:two</b> to compare approaches.</p>
+  </div></div>
+
+  <div class="step"><div class="num">3</div><div class="body">
+    <h3>Build</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:cook</span> "implement the active plan"</pre></div>
+    <p class="mean"><b>Meaning:</b> <b>fullstack-developer</b> writes the Kotlin/Compose code, <b>ui-ux-designer</b> builds screens, <b>tester</b> runs tests. Use <b>/ck:cook:auto</b> for hands-off.</p>
+  </div></div>
+
+  <div class="step"><div class="num">4</div><div class="body">
+    <h3>Build UI from a design <span class="opt">optional</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:design:screenshot</span> ./mockups/reader-settings.png
+<span class="c">/ck:design:good</span> "reader settings bottom sheet, Material 3"</pre></div>
+    <p class="mean"><b>Meaning:</b> turns a screenshot or a text description into Compose UI components.</p>
+  </div></div>
+
+  <div class="step"><div class="num">5</div><div class="body">
+    <h3>Test <span class="opt">usually automatic in cook</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:fix:test</span></pre></div>
+    <p class="mean"><b>Meaning:</b> the <b>tester</b> runs unit/integration tests. The session will not finish until tests pass.</p>
+  </div></div>
+
+  <div class="step"><div class="num">6</div><div class="body">
+    <h3>Review</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:code-review</span></pre></div>
+    <p class="mean"><b>Meaning:</b> the <b>code-reviewer</b> checks quality, edge cases, and security before you ship.</p>
+  </div></div>
+
+  <div class="step"><div class="num">7</div><div class="body">
+    <h3>Debug <span class="opt">when something breaks</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:debug</span>
+<span class="c">/ck:fix:types</span>   <span class="g"># compile / type errors</span>
+<span class="c">/ck:fix:ci</span>      <span class="g"># failing CI pipeline</span>
+<span class="c">/ck:fix:ui</span>      <span class="g"># UI glitches</span></pre></div>
+    <p class="mean"><b>Meaning:</b> the <b>debugger</b> finds the root cause; the fix is applied, then tests re-run.</p>
+  </div></div>
+
+  <div class="step"><div class="num">8</div><div class="body">
+    <h3>Docs <span class="opt">automatic</span></h3>
+    <p class="mean">The <b>docs-manager</b> updates <code>./docs/</code> to match your changes.</p>
+  </div></div>
+
+  <div class="step"><div class="num">9</div><div class="body">
+    <h3>Ship</h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:ship</span> beta       <span class="g"># to your dev branch</span>
+<span class="c">/ck:ship</span> official   <span class="g"># to main (full release: docs + journal)</span></pre></div>
+    <p class="mean"><b>Meaning:</b> one command runs merge → test → review → commit → push → open PR. Stops only for test failures, critical review issues, or a major version bump.</p>
+  </div></div>
+
+  <div class="step"><div class="num">10</div><div class="body">
+    <h3>Explain / visualize <span class="opt">any time</span></h3>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:preview</span> --diagram "caching data flow"
+<span class="c">/ck:preview</span> --html --diff</pre></div>
+    <p class="mean"><b>Meaning:</b> generates diagrams, slide walkthroughs, or a visual diff of your changes.</p>
+  </div></div>
+</section>
+
+<!-- 3 -->
+<section id="commands">
+  <h2><span class="n">3</span>Full command reference</h2>
+  <p class="lead">Type these directly. Grouped to mirror the pipeline.</p>
+
+  <div class="cat">Planning &amp; thinking</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:plan "&lt;task&gt;"</code></td><td>Smart plan — auto-picks depth. Your default planning entry.</td></tr>
+    <tr><td><code>/ck:plan:fast</code></td><td>Quick plan for small, well-understood tasks.</td></tr>
+    <tr><td><code>/ck:plan:hard</code></td><td>Deep plan for complex or risky features.</td></tr>
+    <tr><td><code>/ck:plan:two</code></td><td>Produce two competing approaches to choose from.</td></tr>
+    <tr><td><code>/ck:plan:parallel</code></td><td>Split a large plan across parallel workstreams.</td></tr>
+    <tr><td><code>/ck:plan:ci</code></td><td>Plan focused on CI/CD pipeline work.</td></tr>
+    <tr><td><code>/ck:scout "&lt;q&gt;"</code></td><td>Fast search across the codebase to gather context.</td></tr>
+    <tr><td><code>/ck:scout:ext</code></td><td>Scout external repos / sources for reference.</td></tr>
+  </table>
+
+  <div class="cat">Building</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:cook "&lt;task&gt;"</code></td><td>Implement a feature/plan step by step (asks clarifying questions).</td></tr>
+    <tr><td><code>/ck:cook:auto</code></td><td>Implement hands-off, minimal interruptions.</td></tr>
+    <tr><td><code>/ck:cook:auto:fast</code></td><td>Fast hands-off build.</td></tr>
+    <tr><td><code>/ck:cook:auto:parallel</code></td><td>Hands-off build split across subagents.</td></tr>
+    <tr><td><code>/ck:code "&lt;task&gt;"</code></td><td>Lower-level "just write this code" than full cook.</td></tr>
+    <tr><td><code>/ck:code:auto · :parallel · :no-test</code></td><td>Code variants: hands-off / parallel / skip tests.</td></tr>
+    <tr><td><code>/ck:bootstrap "&lt;idea&gt;"</code></td><td>Scaffold a brand-new project (research → stack → plan → build).</td></tr>
+  </table>
+
+  <div class="cat">Design &amp; UI</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:design:screenshot &lt;img&gt;</code></td><td>Convert a screenshot/mockup into UI code.</td></tr>
+    <tr><td><code>/ck:design:good "&lt;desc&gt;"</code></td><td>Generate a polished, production-quality UI.</td></tr>
+    <tr><td><code>/ck:design:fast</code></td><td>Quick UI draft.</td></tr>
+    <tr><td><code>/ck:design:describe &lt;img&gt;</code></td><td>Describe / spec an existing screen in words.</td></tr>
+    <tr><td><code>/ck:design:3d · :video</code></td><td>3D/graphics or motion/video design output.</td></tr>
+  </table>
+
+  <div class="cat">Fixing &amp; debugging</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:debug "&lt;symptom&gt;"</code></td><td>Root-cause investigation of a bug or failure.</td></tr>
+    <tr><td><code>/ck:fix "&lt;issue&gt;"</code></td><td>Smart fix with automatic routing.</td></tr>
+    <tr><td><code>/ck:fix:test</code></td><td>Fix failing tests.</td></tr>
+    <tr><td><code>/ck:fix:types</code></td><td>Fix type / compile errors.</td></tr>
+    <tr><td><code>/ck:fix:ui</code></td><td>Fix UI / layout issues.</td></tr>
+    <tr><td><code>/ck:fix:ci</code></td><td>Fix a broken CI pipeline.</td></tr>
+    <tr><td><code>/ck:fix:logs</code></td><td>Diagnose from log output.</td></tr>
+    <tr><td><code>/ck:fix:hard · :fast · :parallel</code></td><td>Deep / quick / parallel fixing.</td></tr>
+  </table>
+
+  <div class="cat">Content, preview &amp; skills</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:content:good · :fast · :cro · :enhance</code></td><td>Write / improve copy (release notes, store text).</td></tr>
+    <tr><td><code>/ck:preview --explain &lt;topic&gt;</code></td><td>Visual explanation (ASCII + Mermaid).</td></tr>
+    <tr><td><code>/ck:preview --diagram &lt;topic&gt;</code></td><td>Architecture / data-flow diagram.</td></tr>
+    <tr><td><code>/ck:preview --slides &lt;topic&gt;</code></td><td>Step-by-step slide walkthrough.</td></tr>
+    <tr><td><code>/ck:preview --html --diff [ref]</code></td><td>Visual diff review in the browser.</td></tr>
+    <tr><td><code>/ck:skill:add · :create · :update · :optimize</code></td><td>Manage your own custom skills.</td></tr>
+  </table>
+
+  <div class="cat">Shipping</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td><code>/ck:ship beta</code></td><td>Ship to dev/beta branch (lighter pipeline).</td></tr>
+    <tr><td><code>/ck:ship official</code></td><td>Ship to main (full: docs + journal + release).</td></tr>
+    <tr><td><code>/ck:ship --dry-run</code></td><td>Preview the ship steps without executing.</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section id="agents">
+  <h2><span class="n">4</span>The 13 agents — your team</h2>
+  <p class="lead">You don't call these directly; commands assign them. Knowing who does what helps you read the output.</p>
+  <div class="grid">
+    <div class="agent"><div class="name">planner</div><div class="role">Turns a request into a structured, phased plan with TODOs.</div></div>
+    <div class="agent"><div class="name">researcher</div><div class="role">Investigates unknowns — libraries, APIs, best practices. Runs in parallel.</div></div>
+    <div class="agent"><div class="name">fullstack-developer</div><div class="role">Writes the actual code — Kotlin/Compose, logic, data layer.</div></div>
+    <div class="agent"><div class="name">ui-ux-designer</div><div class="role">Designs screens, wireframes, design systems, responsive layouts.</div></div>
+    <div class="agent"><div class="name">tester</div><div class="role">Writes and runs tests, checks coverage, validates behavior.</div></div>
+    <div class="agent"><div class="name">code-reviewer</div><div class="role">Reviews finished code for quality, edge cases, security.</div></div>
+    <div class="agent"><div class="name">debugger</div><div class="role">Investigates bugs and failures, finds the root cause.</div></div>
+    <div class="agent"><div class="name">code-simplifier</div><div class="role">Refactors recent code for clarity without changing behavior.</div></div>
+    <div class="agent"><div class="name">docs-manager</div><div class="role">Keeps ./docs/ accurate and up to date.</div></div>
+    <div class="agent"><div class="name">git-manager</div><div class="role">Stages, writes conventional commits, pushes, opens PRs.</div></div>
+    <div class="agent"><div class="name">journal-writer</div><div class="role">Records what happened after notable fixes or features.</div></div>
+    <div class="agent"><div class="name">project-manager</div><div class="role">Oversees progress, plan status, coordination — handy for you as lead.</div></div>
+    <div class="agent"><div class="name">brainstormer</div><div class="role">Explores ideas and trade-offs with honest pushback.</div></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="skills">
+  <h2><span class="n">5</span>Skills reference</h2>
+  <p class="lead">Skills auto-activate — this is your map of what the kit knows. Your Compose Multiplatform work leans on the Mobile &amp; build and Design groups.</p>
+
+  <div class="cat">Core workflow</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>ck-plan</code></td><td>Planning &amp; technical roadmaps.</td></tr>
+    <tr><td><code>cook</code></td><td>Structured feature implementation.</td></tr>
+    <tr><td><code>fix</code></td><td>Bug / error / CI fixing with routing.</td></tr>
+    <tr><td><code>ship</code></td><td>Branch → PR ship pipeline.</td></tr>
+    <tr><td><code>bootstrap</code></td><td>New-project scaffolding.</td></tr>
+    <tr><td><code>deploy</code></td><td>Deploy / publish to any platform (auto-detected).</td></tr>
+    <tr><td><code>test</code></td><td>Run unit / integration / e2e / UI tests.</td></tr>
+    <tr><td><code>git</code></td><td>Conventional commits, PRs, merges.</td></tr>
+    <tr><td><code>worktree</code></td><td>Isolated git worktrees for parallel features.</td></tr>
+    <tr><td><code>watzup</code></td><td>Short "where did I leave off" handoff reports.</td></tr>
+    <tr><td><code>plans-kanban</code></td><td>Kanban dashboard of your plans.</td></tr>
+  </table>
+
+  <div class="cat">Mobile &amp; build — your core</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>mobile-development</code></td><td>iOS/Android/Kotlin+Compose patterns, offline-first, performance.</td></tr>
+    <tr><td><code>databases</code></td><td>Schema/query design (adapt to SQLDelight/Room for KMP).</td></tr>
+    <tr><td><code>backend-development</code></td><td>Any API backend your apps need (Node/Python/Go).</td></tr>
+    <tr><td><code>devops</code></td><td>Containers, CI/CD, cloud deploy.</td></tr>
+  </table>
+
+  <div class="cat">Design &amp; assets</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>ui-ux-pro-max</code></td><td>UI/UX intelligence for web &amp; mobile — color, type, layout, a11y.</td></tr>
+    <tr><td><code>design</code></td><td>Brand identity, logos, banners, app icons.</td></tr>
+    <tr><td><code>ai-artist</code></td><td>Generate mockups, store art, marketing visuals.</td></tr>
+    <tr><td><code>ai-multimodal</code></td><td>Generate / analyze images, audio, video.</td></tr>
+    <tr><td><code>media-processing</code></td><td>FFmpeg / ImageMagick — encode, convert, background removal.</td></tr>
+  </table>
+
+  <div class="cat">Research &amp; thinking</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>research · ck-autoresearch</code></td><td>Deep technical research, thorough or autonomous.</td></tr>
+    <tr><td><code>scout</code></td><td>Fast parallel codebase discovery.</td></tr>
+    <tr><td><code>docs-seeker</code></td><td>Pull official library / framework docs.</td></tr>
+    <tr><td><code>brainstorm</code></td><td>Ideation with trade-off analysis.</td></tr>
+    <tr><td><code>problem-solving</code></td><td>Techniques for when you're stuck.</td></tr>
+    <tr><td><code>sequential-thinking</code></td><td>Step-by-step reasoning for complex problems.</td></tr>
+    <tr><td><code>context-engineering</code></td><td>Structure context for best AI results.</td></tr>
+  </table>
+
+  <div class="cat">Quality &amp; security</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>ck-code-review</code></td><td>Evidence-based code review.</td></tr>
+    <tr><td><code>ck-debug</code></td><td>Systematic root-cause debugging.</td></tr>
+    <tr><td><code>ck-security</code></td><td>STRIDE / OWASP security audit + auto-fix.</td></tr>
+    <tr><td><code>security-scan</code></td><td>Scan for secrets, vulns, bad dependencies.</td></tr>
+    <tr><td><code>ck-scenario</code></td><td>Generate edge cases across 12 dimensions.</td></tr>
+    <tr><td><code>ck-predict</code></td><td>5 expert personas debate a change before you build it.</td></tr>
+  </table>
+
+  <div class="cat">Docs, code intel &amp; extras</div>
+  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
+    <tr><td><code>docs · document-skills</code></td><td>Create &amp; maintain project documentation.</td></tr>
+    <tr><td><code>repomix</code></td><td>Pack the repo into an AI-friendly snapshot.</td></tr>
+    <tr><td><code>gkg · tech-graph · ck-graphify</code></td><td>Code knowledge graphs: go-to-def, find-usages, impact.</td></tr>
+    <tr><td><code>mermaidjs-v11</code></td><td>Diagrams (flow, sequence, ER, class).</td></tr>
+    <tr><td><code>preview · show-off</code></td><td>Visual explanations and self-contained HTML demos.</td></tr>
+    <tr><td><code>markdown-novel-viewer</code></td><td>Calm book-like reader for long docs.</td></tr>
+    <tr><td><code>mcp-builder · use-mcp</code></td><td>Build or call external tool servers (MCP).</td></tr>
+    <tr><td><code>skill-creator · find-skills</code></td><td>Create / discover your own skills.</td></tr>
+    <tr><td><code>project-management · project-organization</code></td><td>Progress tracking &amp; file structure.</td></tr>
+    <tr><td><code>journal · retro</code></td><td>Session journals &amp; sprint retrospectives.</td></tr>
+    <tr><td><code>copywriting</code></td><td>Release notes, store copy, headlines.</td></tr>
+    <tr><td><code>agentize · xia</code></td><td>Turn code into an agent tool / port a feature from another repo.</td></tr>
+    <tr><td><code>coding-level</code></td><td>Set explanation depth (junior → lead).</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section id="hooks">
+  <h2><span class="n">6</span>Hooks — always on, never typed</h2>
+  <p class="lead">These run automatically and keep the workflow clean. Listed so you understand the messages you'll see.</p>
+  <table class="tbl"><tr><th>Hook</th><th>What it does for you</th></tr>
+    <tr><td><code>session-init</code></td><td>Detects your project and sets up the session.</td></tr>
+    <tr><td><code>subagent-init</code></td><td>Feeds context to each specialist agent.</td></tr>
+    <tr><td><code>session-state</code></td><td>Remembers progress across sessions.</td></tr>
+    <tr><td><code>dev-rules-reminder</code></td><td>Reinforces your coding rules on each prompt.</td></tr>
+    <tr><td><code>cook-after-plan-reminder</code></td><td>Nudges you to build after a plan is ready.</td></tr>
+    <tr><td><code>plan-format-kanban</code></td><td>Keeps plan files readable for the kanban view.</td></tr>
+    <tr><td><code>descriptive-name</code></td><td>Ensures files / plans get meaningful names.</td></tr>
+    <tr><td><code>simplify-gate</code></td><td>Blocks shipping if code needs simplifying first.</td></tr>
+    <tr><td><code>workflow-artifact-gate</code></td><td>Verifies review artifacts exist before finalizing a fix/cook.</td></tr>
+    <tr><td><code>task-completed-handler</code></td><td>Logs completed tasks and injects progress.</td></tr>
+    <tr><td><code>privacy-block</code></td><td>Blocks access to secret / sensitive files.</td></tr>
+    <tr><td><code>scout-block</code></td><td>Prevents scanning off-limits directories.</td></tr>
+    <tr><td><code>usage-context-awareness</code></td><td>Keeps Claude aware of usage / quota context.</td></tr>
+    <tr><td><code>team-context-inject · teammate-idle-handler</code></td><td>Coordinate multi-agent "team" sessions.</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section id="recipes">
+  <h2><span class="n">7</span>Copy-paste recipes for your apps</h2>
+
+  <h3>EBook Reader — offline EPUB caching</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:scout</span> "current book loading + storage layer"
+<span class="c">/ck:plan</span>  "cache opened EPUBs offline; LRU eviction at 500MB; show cache size in settings"
+<span class="c">/ck:cook</span>  "implement the active plan"
+<span class="c">/ck:preview</span> --diagram "caching flow"
+<span class="c">/ck:ship</span>  beta</pre></div>
+
+  <h3>EBook Reader — reader settings UI from a mockup</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:design:screenshot</span> ./mockups/reader-settings.png
+<span class="c">/ck:cook</span> "wire the generated settings sheet to the reader theme state"
+<span class="c">/ck:ship</span> beta</pre></div>
+
+  <h3>Habits — streak reminders (local notifications)</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan:hard</span> "schedule local notifications for habit streaks using expect/actual: androidMain WorkManager, iosMain UNUserNotificationCenter"
+<span class="c">/ck:cook:auto</span>
+<span class="c">/ck:fix:test</span>
+<span class="c">/ck:ship</span> beta</pre></div>
+
+  <h3>Habits — weekly progress chart</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span> "weekly completion chart per habit, Compose canvas, reads from local DB"
+<span class="c">/ck:cook</span> "implement the active plan"
+<span class="c">/ck:code-review</span>
+<span class="c">/ck:ship</span> beta</pre></div>
+</section>
+
+<!-- 8 -->
+<section id="rules">
+  <h2><span class="n">8</span>Golden rules</h2>
+  <ol class="rules">
+    <li><b>Plan before you build.</b> Always <code>/ck:plan</code> first for anything non-trivial — it prevents rework.</li>
+    <li><b>Let tests gate you.</b> Don't force a ship past red tests; run <code>/ck:fix:test</code> until green.</li>
+    <li><b>One feature, one branch, one <code>/ck:ship</code>.</b> Keeps history clean.</li>
+    <li><b>Teach the kit your stack once.</b> A short <code>CLAUDE.md</code> per app (KMP module layout, DI, navigation, persistence, expect/actual) makes every command smarter.</li>
+    <li><b>Use <code>/ck:preview --diagram</code></b> whenever you want to see how a piece fits before committing to it.</li>
+  </ol>
+  <div class="note">Core loop to remember: <code>/ck:plan</code> → <code>/ck:cook</code> → <code>/ck:ship</code>. Everything else is there when you need it.</div>
+</section>
+
+</div>
+
+<footer>
+  Kit: ClaudeKit Engineer &nbsp;·&nbsp; Stack: Compose Multiplatform (Kotlin + Swift) &nbsp;·&nbsp; <a class="top" href="#how">Back to top ↑</a>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var pre=btn.parentElement.querySelector('pre');
+    var text=pre.innerText.replace(/[ \t]*#.*$/gm,'').replace(/\n{2,}/g,'\n').trim();
+    navigator.clipboard.writeText(text).then(function(){
+      var old=btn.textContent; btn.textContent='Copied'; btn.classList.add('ok');
+      setTimeout(function(){btn.textContent=old; btn.classList.remove('ok');},1400);
+    });
+  });
+});
+</script>
+</body>
+</html>
