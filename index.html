@@ -74,6 +74,17 @@
   .agent{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .agent .name{font-weight:700;color:#fff}
   .agent .role{color:var(--muted);font-size:13.5px;margin-top:3px}
+  .agent .irl{color:var(--accent2);font-size:12.5px;margin-top:8px;font-weight:700}
+
+  /* who-is-who play */
+  .actor{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:#fff;background:linear-gradient(140deg,var(--accent),#5a3fd0);border-radius:999px;padding:4px 12px;margin:0 7px 7px 0}
+  .actor.g{background:linear-gradient(140deg,var(--accent2),#1f8f61)}
+  .actor.o{background:linear-gradient(140deg,var(--accent3),#d96f00)}
+  .actor .m{font-size:10px;letter-spacing:.06em;text-transform:uppercase;opacity:.9;font-weight:800;background:rgba(0,0,0,.22);padding:1px 6px;border-radius:6px}
+  .cast{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:700;margin:2px 0 9px}
+  .line{color:#cdd3de;margin:8px 0 0;font-size:14.5px}
+  .line b{color:#fff}
+  .line .say{color:#c9c2ff;font-style:italic}
 
   .cat{margin:22px 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);font-weight:700}
 
@@ -94,7 +105,7 @@
 <header class="hero">
   <span class="badge">ClaudeKit Engineer</span>
   <h1>Plan → Ship: The Complete Guide</h1>
-  <p class="sub">Everything you need to build Compose Multiplatform apps — EBook Reader, Habits, and beyond. Every command, agent, skill, and hook, with plain-English meanings.</p>
+  <p class="sub">Everything you need to build Compose Multiplatform apps — EBook Reader, Habits, and beyond. Meet your AI team, follow the Plan → Ship pipeline, and copy every command.</p>
   <div class="flow">
     <div class="pill"><code>/ck:plan</code> · think</div>
     <span class="arw">→</span>
@@ -107,13 +118,10 @@
 <nav class="toc"><div class="wrap">
   <a href="#setup">0 · Setup</a>
   <a href="#how">1 · How it works</a>
-  <a href="#pipeline">2 · Pipeline</a>
-  <a href="#commands">3 · Commands</a>
-  <a href="#agents">4 · Agents</a>
-  <a href="#skills">5 · Skills</a>
-  <a href="#hooks">6 · Hooks</a>
-  <a href="#recipes">7 · Recipes</a>
-  <a href="#rules">8 · Golden rules</a>
+  <a href="#whoiswho">2 · Who is who</a>
+  <a href="#pipeline">3 · Pipeline</a>
+  <a href="#commands">4 · Commands</a>
+  <a href="#rules">5 · Golden rules</a>
 </div></nav>
 
 <div class="wrap">
@@ -173,8 +181,125 @@
 </section>
 
 <!-- 2 -->
+<section id="whoiswho">
+  <h2><span class="n">2</span>Who is who — your AI team, on stage</h2>
+  <p class="lead">ClaudeKit is a 13-person studio. You never call an agent by name — each command <b>casts the right specialist for you</b>. Below is who each would be at a real company, the model they run on, and a copiable command (with a real prompt) that puts them to work.</p>
+
+  <div class="cat">The cast — 13 agents as real roles</div>
+  <div class="grid">
+    <div class="agent"><div class="name">planner</div><div class="role">Turns a request into a phased plan with TODOs.</div><div class="irl">🎯 Tech Lead / Solutions Architect · opus</div></div>
+    <div class="agent"><div class="name">researcher</div><div class="role">Investigates libraries, APIs, best practices — in parallel.</div><div class="irl">🔬 R&amp;D Engineer / Dev Advocate · haiku</div></div>
+    <div class="agent"><div class="name">brainstormer</div><div class="role">Debates trade-offs with honest pushback.</div><div class="irl">💡 Principal Engineer (whiteboard) · inherit</div></div>
+    <div class="agent"><div class="name">fullstack-developer</div><div class="role">Writes the Kotlin/Compose code, logic, data layer.</div><div class="irl">⚙️ Senior Software Engineer · sonnet</div></div>
+    <div class="agent"><div class="name">ui-ux-designer</div><div class="role">Designs screens, systems, responsive layouts.</div><div class="irl">🎨 Product Designer / UI Engineer · inherit</div></div>
+    <div class="agent"><div class="name">code-simplifier</div><div class="role">Refactors recent code for clarity, same behavior.</div><div class="irl">✨ Refactoring Specialist / Craftsman · opus</div></div>
+    <div class="agent"><div class="name">tester</div><div class="role">Writes/runs tests, checks coverage, validates.</div><div class="irl">✅ QA Engineer · haiku</div></div>
+    <div class="agent"><div class="name">debugger</div><div class="role">Finds root cause of bugs and failures.</div><div class="irl">🔧 SRE / Diagnostics Engineer · sonnet</div></div>
+    <div class="agent"><div class="name">code-reviewer</div><div class="role">Reviews for quality, edge cases, security.</div><div class="irl">🛡️ Staff Engineer / Security Reviewer · inherit</div></div>
+    <div class="agent"><div class="name">git-manager</div><div class="role">Conventional commits, pushes, opens PRs.</div><div class="irl">🚀 Release Engineer / DevOps · haiku</div></div>
+    <div class="agent"><div class="name">docs-manager</div><div class="role">Keeps ./docs/ accurate and in sync.</div><div class="irl">📝 Technical Writer · haiku</div></div>
+    <div class="agent"><div class="name">journal-writer</div><div class="role">Records what happened after notable work.</div><div class="irl">📓 Postmortem Author / Diarist · haiku</div></div>
+    <div class="agent"><div class="name">project-manager</div><div class="role">Tracks progress, plan status, coordination.</div><div class="irl">📋 Project Manager / Scrum Master · haiku</div></div>
+  </div>
+
+  <div class="cat">The play — one feature, plan → ship</div>
+  <p class="lead">This <b>is</b> the core loop. Copy each command in order and swap the prompt in quotes for your own feature. The running example below builds <b>offline EPUB caching</b> for the EBook Reader.</p>
+
+  <div class="step"><div class="num">0</div><div class="body">
+    <h3>Kickoff <span class="opt">automatic — nothing to type</span></h3>
+    <div class="cast">On stage</div>
+    <span class="actor g">📋 project-manager <span class="m">haiku</span></span>
+    <p class="line"><b>Scrum Master</b> opens the session. <span class="say">"New feature on the board. Context loaded, plan slot ready — let's scope it."</span> Hooks quietly load your CLAUDE.md and rules.</p>
+  </div></div>
+
+  <div class="step"><div class="num">1</div><div class="body">
+    <h3>Plan</h3>
+    <div class="cast">On stage</div>
+    <span class="actor">🎯 planner <span class="m">opus</span></span>
+    <span class="actor g">🔬 researcher <span class="m">haiku</span></span>
+    <span class="actor o">💡 brainstormer <span class="m">inherit</span></span>
+    <p class="line"><b>Tech Lead</b> sketches the phases; <b>R&amp;D</b> fans out to research; the <b>Principal</b> joins only when the approach is contested. Output: a step-by-step plan in <code>./plans/</code>. No code yet.</p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span> "add offline EPUB caching with a 500MB LRU limit; show cache size in settings"</pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">2</div><div class="body">
+    <h3>Build</h3>
+    <div class="cast">On stage</div>
+    <span class="actor">⚙️ fullstack-developer <span class="m">sonnet</span></span>
+    <span class="actor o">🎨 ui-ux-designer <span class="m">inherit</span></span>
+    <p class="line"><b>Senior Engineer</b> executes the plan phase by phase — Kotlin, Compose, data layer. When a screen is needed, the <b>Product Designer</b> steps up. <span class="say">"Logic's wired; here's the settings sheet in Material 3."</span></p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:cook</span> "implement the active plan"</pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">3</div><div class="body">
+    <h3>Tidy up <span class="opt">automatic gate</span></h3>
+    <div class="cast">On stage</div>
+    <span class="actor">✨ code-simplifier <span class="m">opus</span></span>
+    <p class="line"><b>Refactoring Specialist</b> passes over the fresh code. <span class="say">"Same behavior — just clearer names and less nesting."</span> The <code>simplify-gate</code> won't let messy code ship past here.</p>
+  </div></div>
+
+  <div class="step"><div class="num">4</div><div class="body">
+    <h3>Test</h3>
+    <div class="cast">On stage</div>
+    <span class="actor g">✅ tester <span class="m">haiku</span></span>
+    <p class="line"><b>QA Engineer</b> runs the suite and checks coverage. <span class="say">"Two reds on the LRU eviction path — not shipping until these are green."</span> The session won't finish while tests fail.</p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:fix:test</span></pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">5</div><div class="body">
+    <h3>Debug <span class="opt">only if something's red</span></h3>
+    <div class="cast">On stage</div>
+    <span class="actor">🔧 debugger <span class="m">sonnet</span></span>
+    <p class="line"><b>SRE</b> is paged when tests or CI break. <span class="say">"Root cause: cache size read off the main thread. Here's the fix."</span> Applied, QA re-runs, then back to the flow.</p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:debug</span> "cache size stays wrong after eviction"</pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">6</div><div class="body">
+    <h3>Review</h3>
+    <div class="cast">On stage</div>
+    <span class="actor o">🛡️ code-reviewer <span class="m">inherit</span></span>
+    <p class="line"><b>Staff Engineer</b> gates the merge on quality, edge cases, and security. <span class="say">"Logic's solid. Handle the disk-full case and this is good to go."</span></p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:code-review</span></pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">7</div><div class="body">
+    <h3>Ship</h3>
+    <div class="cast">On stage</div>
+    <span class="actor g">🚀 git-manager <span class="m">haiku</span></span>
+    <p class="line"><b>Release Engineer</b> runs merge → commit → push → PR in one shot. <span class="say">"Conventional commit written, branch pushed, PR open."</span> Clean history, every time.</p>
+    <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:ship</span> beta</pre></div>
+  </div></div>
+
+  <div class="step"><div class="num">8</div><div class="body">
+    <h3>Document &amp; close <span class="opt">automatic on <code>official</code></span></h3>
+    <div class="cast">On stage</div>
+    <span class="actor g">📝 docs-manager <span class="m">haiku</span></span>
+    <span class="actor g">📓 journal-writer <span class="m">haiku</span></span>
+    <span class="actor g">📋 project-manager <span class="m">haiku</span></span>
+    <p class="line"><b>Technical Writer</b> syncs <code>./docs/</code>, <b>Postmortem Author</b> logs the decisions, <b>Scrum Master</b> closes the card. <span class="say">"Shipped, documented, logged. What's next on the board?"</span></p>
+  </div></div>
+
+  <div class="cat">Run it end-to-end — copy a whole feature</div>
+  <p class="lead">The scenes above as ready-to-paste sequences for your two apps.</p>
+
+  <h3>EBook Reader — offline EPUB caching</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span> "cache opened EPUBs offline; LRU eviction at 500MB; show cache size in settings"
+<span class="c">/ck:cook</span> "implement the active plan"
+<span class="c">/ck:code-review</span>
+<span class="c">/ck:ship</span> beta</pre></div>
+
+  <h3>Habits — streak reminders (local notifications)</h3>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan:hard</span> "local notifications for habit streaks via expect/actual: androidMain WorkManager, iosMain UNUserNotificationCenter"
+<span class="c">/ck:cook:auto</span>
+<span class="c">/ck:fix:test</span>
+<span class="c">/ck:ship</span> beta</pre></div>
+
+  <div class="note"><b>Reading the stage:</b> purple = deep reasoning (<code>opus</code>), gradient-teal = fast throughput (<code>haiku</code>), orange = follows your session (<code>inherit</code>), blue = solid execution (<code>sonnet</code>). You direct the studio; the right specialist is cast for you on every command.</div>
+</section>
+
+<!-- 3 -->
 <section id="pipeline">
-  <h2><span class="n">2</span>The Plan → Ship pipeline</h2>
+  <h2><span class="n">3</span>The Plan → Ship pipeline</h2>
   <p class="lead">Follow top to bottom. Copy the commands as you go.</p>
 
   <div class="step"><div class="num">0</div><div class="body">
@@ -248,224 +373,80 @@
   </div></div>
 </section>
 
-<!-- 3 -->
+<!-- 4 -->
 <section id="commands">
-  <h2><span class="n">3</span>Full command reference</h2>
-  <p class="lead">Type these directly. Grouped to mirror the pipeline.</p>
+  <h2><span class="n">4</span>Full command reference</h2>
+  <p class="lead">Grouped to mirror the pipeline. Each row shows the command, what it does, and a real example you can adapt. Anything in quotes is your prompt — the bracketed <code>&lt;…&gt;</code> is a placeholder.</p>
+
+  <div class="cat">Most used — copy these three</div>
+  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span>  "describe the feature"     <span class="g"># think &amp; design</span>
+<span class="c">/ck:cook</span>  "implement the active plan"  <span class="g"># build &amp; test</span>
+<span class="c">/ck:ship</span>  beta                       <span class="g"># commit, review, push, PR</span></pre></div>
 
   <div class="cat">Planning &amp; thinking</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:plan "&lt;task&gt;"</code></td><td>Smart plan — auto-picks depth. Your default planning entry.</td></tr>
-    <tr><td><code>/ck:plan:fast</code></td><td>Quick plan for small, well-understood tasks.</td></tr>
-    <tr><td><code>/ck:plan:hard</code></td><td>Deep plan for complex or risky features.</td></tr>
-    <tr><td><code>/ck:plan:two</code></td><td>Produce two competing approaches to choose from.</td></tr>
-    <tr><td><code>/ck:plan:parallel</code></td><td>Split a large plan across parallel workstreams.</td></tr>
-    <tr><td><code>/ck:plan:ci</code></td><td>Plan focused on CI/CD pipeline work.</td></tr>
-    <tr><td><code>/ck:scout "&lt;q&gt;"</code></td><td>Fast search across the codebase to gather context.</td></tr>
-    <tr><td><code>/ck:scout:ext</code></td><td>Scout external repos / sources for reference.</td></tr>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:plan "&lt;task&gt;"</code></td><td>Smart plan — auto-picks depth. Your default planning entry.</td><td><code>/ck:plan "add offline EPUB caching, 500MB LRU"</code></td></tr>
+    <tr><td><code>/ck:plan:fast</code></td><td>Quick plan for small, well-understood tasks.</td><td><code>/ck:plan:fast "add a pull-to-refresh on the library"</code></td></tr>
+    <tr><td><code>/ck:plan:hard</code></td><td>Deep plan for complex or risky features.</td><td><code>/ck:plan:hard "sync habits across devices"</code></td></tr>
+    <tr><td><code>/ck:plan:two</code></td><td>Produce two competing approaches to choose from.</td><td><code>/ck:plan:two "local DB: SQLDelight vs Room KMP"</code></td></tr>
+    <tr><td><code>/ck:plan:parallel</code></td><td>Split a large plan across parallel workstreams.</td><td><code>/ck:plan:parallel "reader redesign + settings"</code></td></tr>
+    <tr><td><code>/ck:plan:ci</code></td><td>Plan focused on CI/CD pipeline work.</td><td><code>/ck:plan:ci "add iOS TestFlight upload to CI"</code></td></tr>
+    <tr><td><code>/ck:scout "&lt;q&gt;"</code></td><td>Fast search across the codebase to gather context.</td><td><code>/ck:scout "how does the reader paginate a book"</code></td></tr>
+    <tr><td><code>/ck:scout:ext</code></td><td>Scout external repos / sources for reference.</td><td><code>/ck:scout:ext "EPUB parsing libraries for KMP"</code></td></tr>
   </table>
 
   <div class="cat">Building</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:cook "&lt;task&gt;"</code></td><td>Implement a feature/plan step by step (asks clarifying questions).</td></tr>
-    <tr><td><code>/ck:cook:auto</code></td><td>Implement hands-off, minimal interruptions.</td></tr>
-    <tr><td><code>/ck:cook:auto:fast</code></td><td>Fast hands-off build.</td></tr>
-    <tr><td><code>/ck:cook:auto:parallel</code></td><td>Hands-off build split across subagents.</td></tr>
-    <tr><td><code>/ck:code "&lt;task&gt;"</code></td><td>Lower-level "just write this code" than full cook.</td></tr>
-    <tr><td><code>/ck:code:auto · :parallel · :no-test</code></td><td>Code variants: hands-off / parallel / skip tests.</td></tr>
-    <tr><td><code>/ck:bootstrap "&lt;idea&gt;"</code></td><td>Scaffold a brand-new project (research → stack → plan → build).</td></tr>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:cook "&lt;task&gt;"</code></td><td>Implement a feature/plan step by step (asks clarifying questions).</td><td><code>/ck:cook "implement the active plan"</code></td></tr>
+    <tr><td><code>/ck:cook:auto</code></td><td>Implement hands-off, minimal interruptions.</td><td><code>/ck:cook:auto</code></td></tr>
+    <tr><td><code>/ck:cook:auto:fast</code></td><td>Fast hands-off build.</td><td><code>/ck:cook:auto:fast</code></td></tr>
+    <tr><td><code>/ck:cook:auto:parallel</code></td><td>Hands-off build split across subagents.</td><td><code>/ck:cook:auto:parallel</code></td></tr>
+    <tr><td><code>/ck:code "&lt;task&gt;"</code></td><td>Lower-level "just write this code" than full cook.</td><td><code>/ck:code "add a LruCache&lt;String,ByteArray&gt; helper"</code></td></tr>
+    <tr><td><code>/ck:code:auto · :parallel · :no-test</code></td><td>Code variants: hands-off / parallel / skip tests.</td><td><code>/ck:code:no-test "wire the cache into the repo"</code></td></tr>
+    <tr><td><code>/ck:bootstrap "&lt;idea&gt;"</code></td><td>Scaffold a brand-new project (research → stack → plan → build).</td><td><code>/ck:bootstrap "Compose Multiplatform recipe app"</code></td></tr>
   </table>
 
   <div class="cat">Design &amp; UI</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:design:screenshot &lt;img&gt;</code></td><td>Convert a screenshot/mockup into UI code.</td></tr>
-    <tr><td><code>/ck:design:good "&lt;desc&gt;"</code></td><td>Generate a polished, production-quality UI.</td></tr>
-    <tr><td><code>/ck:design:fast</code></td><td>Quick UI draft.</td></tr>
-    <tr><td><code>/ck:design:describe &lt;img&gt;</code></td><td>Describe / spec an existing screen in words.</td></tr>
-    <tr><td><code>/ck:design:3d · :video</code></td><td>3D/graphics or motion/video design output.</td></tr>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:design:screenshot &lt;img&gt;</code></td><td>Convert a screenshot/mockup into UI code.</td><td><code>/ck:design:screenshot ./mockups/reader-settings.png</code></td></tr>
+    <tr><td><code>/ck:design:good "&lt;desc&gt;"</code></td><td>Generate a polished, production-quality UI.</td><td><code>/ck:design:good "reader settings bottom sheet, Material 3"</code></td></tr>
+    <tr><td><code>/ck:design:fast</code></td><td>Quick UI draft.</td><td><code>/ck:design:fast "habit streak card"</code></td></tr>
+    <tr><td><code>/ck:design:describe &lt;img&gt;</code></td><td>Describe / spec an existing screen in words.</td><td><code>/ck:design:describe ./screens/home.png</code></td></tr>
+    <tr><td><code>/ck:design:3d · :video</code></td><td>3D/graphics or motion/video design output.</td><td><code>/ck:design:video "app store preview reel"</code></td></tr>
   </table>
 
   <div class="cat">Fixing &amp; debugging</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:debug "&lt;symptom&gt;"</code></td><td>Root-cause investigation of a bug or failure.</td></tr>
-    <tr><td><code>/ck:fix "&lt;issue&gt;"</code></td><td>Smart fix with automatic routing.</td></tr>
-    <tr><td><code>/ck:fix:test</code></td><td>Fix failing tests.</td></tr>
-    <tr><td><code>/ck:fix:types</code></td><td>Fix type / compile errors.</td></tr>
-    <tr><td><code>/ck:fix:ui</code></td><td>Fix UI / layout issues.</td></tr>
-    <tr><td><code>/ck:fix:ci</code></td><td>Fix a broken CI pipeline.</td></tr>
-    <tr><td><code>/ck:fix:logs</code></td><td>Diagnose from log output.</td></tr>
-    <tr><td><code>/ck:fix:hard · :fast · :parallel</code></td><td>Deep / quick / parallel fixing.</td></tr>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:debug "&lt;symptom&gt;"</code></td><td>Root-cause investigation of a bug or failure.</td><td><code>/ck:debug "cache size wrong after eviction"</code></td></tr>
+    <tr><td><code>/ck:fix "&lt;issue&gt;"</code></td><td>Smart fix with automatic routing.</td><td><code>/ck:fix "crash opening a DRM-protected EPUB"</code></td></tr>
+    <tr><td><code>/ck:fix:test</code></td><td>Fix failing tests.</td><td><code>/ck:fix:test</code></td></tr>
+    <tr><td><code>/ck:fix:types</code></td><td>Fix type / compile errors.</td><td><code>/ck:fix:types</code></td></tr>
+    <tr><td><code>/ck:fix:ui</code></td><td>Fix UI / layout issues.</td><td><code>/ck:fix:ui "settings sheet overlaps the status bar"</code></td></tr>
+    <tr><td><code>/ck:fix:ci</code></td><td>Fix a broken CI pipeline.</td><td><code>/ck:fix:ci</code></td></tr>
+    <tr><td><code>/ck:fix:logs</code></td><td>Diagnose from log output.</td><td><code>/ck:fix:logs ./build/reports/logcat.txt</code></td></tr>
+    <tr><td><code>/ck:fix:hard · :fast · :parallel</code></td><td>Deep / quick / parallel fixing.</td><td><code>/ck:fix:hard "intermittent DB lock on startup"</code></td></tr>
   </table>
 
-  <div class="cat">Content, preview &amp; skills</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:content:good · :fast · :cro · :enhance</code></td><td>Write / improve copy (release notes, store text).</td></tr>
-    <tr><td><code>/ck:preview --explain &lt;topic&gt;</code></td><td>Visual explanation (ASCII + Mermaid).</td></tr>
-    <tr><td><code>/ck:preview --diagram &lt;topic&gt;</code></td><td>Architecture / data-flow diagram.</td></tr>
-    <tr><td><code>/ck:preview --slides &lt;topic&gt;</code></td><td>Step-by-step slide walkthrough.</td></tr>
-    <tr><td><code>/ck:preview --html --diff [ref]</code></td><td>Visual diff review in the browser.</td></tr>
-    <tr><td><code>/ck:skill:add · :create · :update · :optimize</code></td><td>Manage your own custom skills.</td></tr>
+  <div class="cat">Content &amp; preview</div>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:content:good · :fast · :cro · :enhance</code></td><td>Write / improve copy (release notes, store text).</td><td><code>/ck:content:good "App Store description for Habits"</code></td></tr>
+    <tr><td><code>/ck:preview --explain &lt;topic&gt;</code></td><td>Visual explanation (ASCII + Mermaid).</td><td><code>/ck:preview --explain "how caching works"</code></td></tr>
+    <tr><td><code>/ck:preview --diagram &lt;topic&gt;</code></td><td>Architecture / data-flow diagram.</td><td><code>/ck:preview --diagram "caching data flow"</code></td></tr>
+    <tr><td><code>/ck:preview --slides &lt;topic&gt;</code></td><td>Step-by-step slide walkthrough.</td><td><code>/ck:preview --slides "reader architecture"</code></td></tr>
+    <tr><td><code>/ck:preview --html --diff [ref]</code></td><td>Visual diff review in the browser.</td><td><code>/ck:preview --html --diff main</code></td></tr>
   </table>
 
   <div class="cat">Shipping</div>
-  <table class="tbl"><tr><th>Command</th><th>Meaning</th></tr>
-    <tr><td><code>/ck:ship beta</code></td><td>Ship to dev/beta branch (lighter pipeline).</td></tr>
-    <tr><td><code>/ck:ship official</code></td><td>Ship to main (full: docs + journal + release).</td></tr>
-    <tr><td><code>/ck:ship --dry-run</code></td><td>Preview the ship steps without executing.</td></tr>
+  <table class="tbl"><tr><th>Command</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>/ck:ship beta</code></td><td>Ship to dev/beta branch (lighter pipeline).</td><td><code>/ck:ship beta</code></td></tr>
+    <tr><td><code>/ck:ship official</code></td><td>Ship to main (full: docs + journal + release).</td><td><code>/ck:ship official</code></td></tr>
+    <tr><td><code>/ck:ship --dry-run</code></td><td>Preview the ship steps without executing.</td><td><code>/ck:ship --dry-run</code></td></tr>
   </table>
-</section>
-
-<!-- 4 -->
-<section id="agents">
-  <h2><span class="n">4</span>The 13 agents — your team</h2>
-  <p class="lead">You don't call these directly; commands assign them. Knowing who does what helps you read the output.</p>
-  <div class="grid">
-    <div class="agent"><div class="name">planner</div><div class="role">Turns a request into a structured, phased plan with TODOs.</div></div>
-    <div class="agent"><div class="name">researcher</div><div class="role">Investigates unknowns — libraries, APIs, best practices. Runs in parallel.</div></div>
-    <div class="agent"><div class="name">fullstack-developer</div><div class="role">Writes the actual code — Kotlin/Compose, logic, data layer.</div></div>
-    <div class="agent"><div class="name">ui-ux-designer</div><div class="role">Designs screens, wireframes, design systems, responsive layouts.</div></div>
-    <div class="agent"><div class="name">tester</div><div class="role">Writes and runs tests, checks coverage, validates behavior.</div></div>
-    <div class="agent"><div class="name">code-reviewer</div><div class="role">Reviews finished code for quality, edge cases, security.</div></div>
-    <div class="agent"><div class="name">debugger</div><div class="role">Investigates bugs and failures, finds the root cause.</div></div>
-    <div class="agent"><div class="name">code-simplifier</div><div class="role">Refactors recent code for clarity without changing behavior.</div></div>
-    <div class="agent"><div class="name">docs-manager</div><div class="role">Keeps ./docs/ accurate and up to date.</div></div>
-    <div class="agent"><div class="name">git-manager</div><div class="role">Stages, writes conventional commits, pushes, opens PRs.</div></div>
-    <div class="agent"><div class="name">journal-writer</div><div class="role">Records what happened after notable fixes or features.</div></div>
-    <div class="agent"><div class="name">project-manager</div><div class="role">Oversees progress, plan status, coordination — handy for you as lead.</div></div>
-    <div class="agent"><div class="name">brainstormer</div><div class="role">Explores ideas and trade-offs with honest pushback.</div></div>
-  </div>
 </section>
 
 <!-- 5 -->
-<section id="skills">
-  <h2><span class="n">5</span>Skills reference</h2>
-  <p class="lead">Skills auto-activate — this is your map of what the kit knows. Your Compose Multiplatform work leans on the Mobile &amp; build and Design groups.</p>
-
-  <div class="cat">Core workflow</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>ck-plan</code></td><td>Planning &amp; technical roadmaps.</td></tr>
-    <tr><td><code>cook</code></td><td>Structured feature implementation.</td></tr>
-    <tr><td><code>fix</code></td><td>Bug / error / CI fixing with routing.</td></tr>
-    <tr><td><code>ship</code></td><td>Branch → PR ship pipeline.</td></tr>
-    <tr><td><code>bootstrap</code></td><td>New-project scaffolding.</td></tr>
-    <tr><td><code>deploy</code></td><td>Deploy / publish to any platform (auto-detected).</td></tr>
-    <tr><td><code>test</code></td><td>Run unit / integration / e2e / UI tests.</td></tr>
-    <tr><td><code>git</code></td><td>Conventional commits, PRs, merges.</td></tr>
-    <tr><td><code>worktree</code></td><td>Isolated git worktrees for parallel features.</td></tr>
-    <tr><td><code>watzup</code></td><td>Short "where did I leave off" handoff reports.</td></tr>
-    <tr><td><code>plans-kanban</code></td><td>Kanban dashboard of your plans.</td></tr>
-  </table>
-
-  <div class="cat">Mobile &amp; build — your core</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>mobile-development</code></td><td>iOS/Android/Kotlin+Compose patterns, offline-first, performance.</td></tr>
-    <tr><td><code>databases</code></td><td>Schema/query design (adapt to SQLDelight/Room for KMP).</td></tr>
-    <tr><td><code>backend-development</code></td><td>Any API backend your apps need (Node/Python/Go).</td></tr>
-    <tr><td><code>devops</code></td><td>Containers, CI/CD, cloud deploy.</td></tr>
-  </table>
-
-  <div class="cat">Design &amp; assets</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>ui-ux-pro-max</code></td><td>UI/UX intelligence for web &amp; mobile — color, type, layout, a11y.</td></tr>
-    <tr><td><code>design</code></td><td>Brand identity, logos, banners, app icons.</td></tr>
-    <tr><td><code>ai-artist</code></td><td>Generate mockups, store art, marketing visuals.</td></tr>
-    <tr><td><code>ai-multimodal</code></td><td>Generate / analyze images, audio, video.</td></tr>
-    <tr><td><code>media-processing</code></td><td>FFmpeg / ImageMagick — encode, convert, background removal.</td></tr>
-  </table>
-
-  <div class="cat">Research &amp; thinking</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>research · ck-autoresearch</code></td><td>Deep technical research, thorough or autonomous.</td></tr>
-    <tr><td><code>scout</code></td><td>Fast parallel codebase discovery.</td></tr>
-    <tr><td><code>docs-seeker</code></td><td>Pull official library / framework docs.</td></tr>
-    <tr><td><code>brainstorm</code></td><td>Ideation with trade-off analysis.</td></tr>
-    <tr><td><code>problem-solving</code></td><td>Techniques for when you're stuck.</td></tr>
-    <tr><td><code>sequential-thinking</code></td><td>Step-by-step reasoning for complex problems.</td></tr>
-    <tr><td><code>context-engineering</code></td><td>Structure context for best AI results.</td></tr>
-  </table>
-
-  <div class="cat">Quality &amp; security</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>ck-code-review</code></td><td>Evidence-based code review.</td></tr>
-    <tr><td><code>ck-debug</code></td><td>Systematic root-cause debugging.</td></tr>
-    <tr><td><code>ck-security</code></td><td>STRIDE / OWASP security audit + auto-fix.</td></tr>
-    <tr><td><code>security-scan</code></td><td>Scan for secrets, vulns, bad dependencies.</td></tr>
-    <tr><td><code>ck-scenario</code></td><td>Generate edge cases across 12 dimensions.</td></tr>
-    <tr><td><code>ck-predict</code></td><td>5 expert personas debate a change before you build it.</td></tr>
-  </table>
-
-  <div class="cat">Docs, code intel &amp; extras</div>
-  <table class="tbl"><tr><th>Skill</th><th>Meaning</th></tr>
-    <tr><td><code>docs · document-skills</code></td><td>Create &amp; maintain project documentation.</td></tr>
-    <tr><td><code>repomix</code></td><td>Pack the repo into an AI-friendly snapshot.</td></tr>
-    <tr><td><code>gkg · tech-graph · ck-graphify</code></td><td>Code knowledge graphs: go-to-def, find-usages, impact.</td></tr>
-    <tr><td><code>mermaidjs-v11</code></td><td>Diagrams (flow, sequence, ER, class).</td></tr>
-    <tr><td><code>preview · show-off</code></td><td>Visual explanations and self-contained HTML demos.</td></tr>
-    <tr><td><code>markdown-novel-viewer</code></td><td>Calm book-like reader for long docs.</td></tr>
-    <tr><td><code>mcp-builder · use-mcp</code></td><td>Build or call external tool servers (MCP).</td></tr>
-    <tr><td><code>skill-creator · find-skills</code></td><td>Create / discover your own skills.</td></tr>
-    <tr><td><code>project-management · project-organization</code></td><td>Progress tracking &amp; file structure.</td></tr>
-    <tr><td><code>journal · retro</code></td><td>Session journals &amp; sprint retrospectives.</td></tr>
-    <tr><td><code>copywriting</code></td><td>Release notes, store copy, headlines.</td></tr>
-    <tr><td><code>agentize · xia</code></td><td>Turn code into an agent tool / port a feature from another repo.</td></tr>
-    <tr><td><code>coding-level</code></td><td>Set explanation depth (junior → lead).</td></tr>
-  </table>
-</section>
-
-<!-- 6 -->
-<section id="hooks">
-  <h2><span class="n">6</span>Hooks — always on, never typed</h2>
-  <p class="lead">These run automatically and keep the workflow clean. Listed so you understand the messages you'll see.</p>
-  <table class="tbl"><tr><th>Hook</th><th>What it does for you</th></tr>
-    <tr><td><code>session-init</code></td><td>Detects your project and sets up the session.</td></tr>
-    <tr><td><code>subagent-init</code></td><td>Feeds context to each specialist agent.</td></tr>
-    <tr><td><code>session-state</code></td><td>Remembers progress across sessions.</td></tr>
-    <tr><td><code>dev-rules-reminder</code></td><td>Reinforces your coding rules on each prompt.</td></tr>
-    <tr><td><code>cook-after-plan-reminder</code></td><td>Nudges you to build after a plan is ready.</td></tr>
-    <tr><td><code>plan-format-kanban</code></td><td>Keeps plan files readable for the kanban view.</td></tr>
-    <tr><td><code>descriptive-name</code></td><td>Ensures files / plans get meaningful names.</td></tr>
-    <tr><td><code>simplify-gate</code></td><td>Blocks shipping if code needs simplifying first.</td></tr>
-    <tr><td><code>workflow-artifact-gate</code></td><td>Verifies review artifacts exist before finalizing a fix/cook.</td></tr>
-    <tr><td><code>task-completed-handler</code></td><td>Logs completed tasks and injects progress.</td></tr>
-    <tr><td><code>privacy-block</code></td><td>Blocks access to secret / sensitive files.</td></tr>
-    <tr><td><code>scout-block</code></td><td>Prevents scanning off-limits directories.</td></tr>
-    <tr><td><code>usage-context-awareness</code></td><td>Keeps Claude aware of usage / quota context.</td></tr>
-    <tr><td><code>team-context-inject · teammate-idle-handler</code></td><td>Coordinate multi-agent "team" sessions.</td></tr>
-  </table>
-</section>
-
-<!-- 7 -->
-<section id="recipes">
-  <h2><span class="n">7</span>Copy-paste recipes for your apps</h2>
-
-  <h3>EBook Reader — offline EPUB caching</h3>
-  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:scout</span> "current book loading + storage layer"
-<span class="c">/ck:plan</span>  "cache opened EPUBs offline; LRU eviction at 500MB; show cache size in settings"
-<span class="c">/ck:cook</span>  "implement the active plan"
-<span class="c">/ck:preview</span> --diagram "caching flow"
-<span class="c">/ck:ship</span>  beta</pre></div>
-
-  <h3>EBook Reader — reader settings UI from a mockup</h3>
-  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:design:screenshot</span> ./mockups/reader-settings.png
-<span class="c">/ck:cook</span> "wire the generated settings sheet to the reader theme state"
-<span class="c">/ck:ship</span> beta</pre></div>
-
-  <h3>Habits — streak reminders (local notifications)</h3>
-  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan:hard</span> "schedule local notifications for habit streaks using expect/actual: androidMain WorkManager, iosMain UNUserNotificationCenter"
-<span class="c">/ck:cook:auto</span>
-<span class="c">/ck:fix:test</span>
-<span class="c">/ck:ship</span> beta</pre></div>
-
-  <h3>Habits — weekly progress chart</h3>
-  <div class="cmd"><button class="copy">Copy</button><pre><span class="c">/ck:plan</span> "weekly completion chart per habit, Compose canvas, reads from local DB"
-<span class="c">/ck:cook</span> "implement the active plan"
-<span class="c">/ck:code-review</span>
-<span class="c">/ck:ship</span> beta</pre></div>
-</section>
-
-<!-- 8 -->
 <section id="rules">
-  <h2><span class="n">8</span>Golden rules</h2>
+  <h2><span class="n">5</span>Golden rules</h2>
   <ol class="rules">
     <li><b>Plan before you build.</b> Always <code>/ck:plan</code> first for anything non-trivial — it prevents rework.</li>
     <li><b>Let tests gate you.</b> Don't force a ship past red tests; run <code>/ck:fix:test</code> until green.</li>
